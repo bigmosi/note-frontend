@@ -1,0 +1,7 @@
+.draggable-item {
+    transition: transform 0.2s ease;
+}
+
+.droppable-container {
+ min-height: 100px; 
+}
