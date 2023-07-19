@@ -56,13 +56,13 @@ const NoteOrganization = () => {
   return (
     <div>
       <h2>My Notes</h2>
-      <DragDropContext onDragEnd={onDragEnd}> {/* Add the onDragEnd prop to DragDropContext */}
+      <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="notes">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {notes && notes.length > 0 ? (
                 notes.map((note, index) => (
-                  <Draggable draggableId={note._id} index={index} key={note._id}>
+                  <Draggable key={note._id} draggableId={note._id} index={index}>
                     {(provided) => (
                       <div
                         ref={provided.innerRef}
