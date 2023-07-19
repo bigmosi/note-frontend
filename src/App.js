@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import NoteOrganization from './components/NoteOrganization';
+import CategoryList from './components/CategoryList';
+import CategoryDetails from './components/CategoryDetails';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -29,7 +31,8 @@ const App = () => {
       </nav>
       <Routes>
         <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
-        {/* Add other routes as needed */}
+        <Route path='/' element={<CategoryList />} />
+        <Route path="/category/:categoryId" element={<CategoryDetails />} />
       </Routes>
     </Router>
   );
