@@ -44,6 +44,8 @@ const Note = ({ note, index, moveNote }) => {
 
 const CategoryDetails = () => {
   const [category, setCategory] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterTag, setFilterTag] = useState('');
   const { categoryId } = useParams();
 
   useEffect(() => {
@@ -67,17 +69,53 @@ const CategoryDetails = () => {
     setCategory({ ...category, notes: reorderedNotes });
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterTagChange = (e) => {
+    setFilterTag(e.target.value);
+  };
+
+  const filteredNotes = category?.notes.filter(
+    (note) => 
+    note.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+    note.content.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+    note.tags.includes(filterTag)
+  )
+
   return (
     <div>
       {category ? (
         <div>
           <h2>{category.name}</h2>
           <p>{category.description}</p>
+          <div>
+            <label htmlFor="search">Search:</label>
+            <input
+              type="text"
+              id="search"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Search by title or content"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="filterTag">Filter by Tag:</label>
+            <input
+              type="text"
+              id="filterTag"
+              value={filterTag}
+              onChange={handleFilterTagChange}
+              placeholder="Enter a tag to filter"
+            />
+          </div>
           <h3>Notes:</h3>
-          {category.notes.length > 0 ? (
+          {filteredNotes.length > 0 ? (
             <DndProvider backend={HTML5Backend}>
               <ul>
-                {category.notes.map((note, index) => (
+                {filteredNotes.map((note, index) => (
                   <Note key={note._id} note={note} index={index} moveNote={moveNote} />
                 ))}
               </ul>
