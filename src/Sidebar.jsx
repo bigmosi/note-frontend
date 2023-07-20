@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, Routes, Route, Link } from 'react-router-dom';
 import NoteOrganization from './components/NoteOrganization';
 import CategoryList from './components/CategoryList';
 import CategoryDetails from './components/CategoryDetails';
+import CategoryIcon from './components/CategoryIcon';
 
 import {
   MenuFoldOutlined,
@@ -22,6 +23,7 @@ const SideBar = () => {
   } = theme.useToken();
 
   const [notes, setNotes] = useState([]);
+  const navigate = useNavigate();
 
   // Fetch notes from the backend on component mount
   useEffect(() => {
@@ -37,79 +39,72 @@ const SideBar = () => {
     }
   };
 
+  const handleNavLinkClick = (path) => {
+    navigate(path);
+  };
+
   return (
-    <Router>
+    <Layout>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          items={[
+            {
+              key: 'home',
+              label: 'Home',
+              icon: <UserOutlined  />,
+              onClick: () => handleNavLinkClick('/'),
+            },
+            {
+              key: '1',
+              icon: <UserOutlined />,
+              label: 'nav 1',
+            },
+            {
+              key: '2',
+              icon: <VideoCameraOutlined />,
+              label: 'nav 2',
+            },
+          ]}
+        />
+      </Sider>
       <Layout>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            items={[
-              {
-                key: '1',
-                icon: <UserOutlined />,
-                label: 'nav 1',
-              },
-              {
-                key: '2',
-                icon: <VideoCameraOutlined />,
-                label: 'nav 2',
-              },
-              {
-                key: '3',
-                icon: <UploadOutlined />,
-                label: 'nav 3',
-              },
-            ]}
+        <Header
+          style={{
+            padding: 0,
+            background: colorBgContainer,
+          }}
+        >
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
           />
-        </Sider>
-        <Layout>
-          <Header
-            style={{
-              padding: 0,
-              background: colorBgContainer,
-            }}
-          >
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: '16px',
-                width: 64,
-                height: 64,
-              }}
-            />
-          </Header>
-          <Content
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-              background: colorBgContainer,
-            }}
-          >
-            <nav>
-              <ul>
-                <li>
-                  <NavLink to="/">Home</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/categories/:categoryId">Note Organization</NavLink>
-                </li>
-              </ul>
-            </nav>
-            <Routes>
-              <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
-              <Route path='/' element={<CategoryList />} />
-              <Route path="/category/:categoryId" element={<CategoryDetails />} />
-            </Routes>
-          </Content>
-        </Layout>
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+          <Routes>
+            <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
+            <Route path='/' element={<CategoryList />} />
+            <Route path="/category/:categoryId" element={<CategoryDetails />} />
+          </Routes>
+        </Content>
       </Layout>
-    </Router>
+    </Layout>
   );
 };
 
