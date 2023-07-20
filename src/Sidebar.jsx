@@ -5,6 +5,7 @@ import NoteOrganization from './components/NoteOrganization';
 import CategoryList from './components/CategoryList';
 import CategoryDetails from './components/CategoryDetails';
 import CategoryIcon from './components/CategoryIcon';
+import NoteCreationInterface from './components/NoteCreationInterface';
 
 import {
   MenuFoldOutlined,
@@ -61,7 +62,8 @@ const SideBar = () => {
             {
               key: '1',
               icon: <UserOutlined />,
-              label: 'nav 1',
+              label: 'Create Notes',
+              onClick: () => handleNavLinkClick('/create-notes'),
             },
             {
               key: '2',
@@ -101,6 +103,7 @@ const SideBar = () => {
             <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
             <Route path='/' element={<CategoryList />} />
             <Route path="/category/:categoryId" element={<CategoryDetails />} />
+            <Route path="/create-notes" element={<NoteCreationInterface />} />
           </Routes>
         </Content>
       </Layout>
