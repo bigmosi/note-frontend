@@ -58,6 +58,10 @@ const SideBar = () => {
     navigate('/login');
   };
 
+  const handleNavLinkClick = (path) => {
+    navigate(path);
+  };
+
   return (
     <Layout>
       {isLoggedIn ? (
@@ -75,10 +79,7 @@ const SideBar = () => {
             </Menu.Item>
           </Menu>
         </Sider>
-      ) : (
-        // Redirect to the login page for non-logged-in users
-        navigate('/login')
-      )}
+      ) : null /* Hide the sidebar when the user is not logged in */}
       <Layout>
         <Header
           style={{
@@ -106,12 +107,20 @@ const SideBar = () => {
           }}
         >
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
-            <Route path="/" element={<CategoryList />} />
-            <Route path="/category/:categoryId" element={<CategoryDetails />} />
-            <Route path="/create-notes" element={<NoteCreationInterface />} />
+            {/* Conditionally render the "Register" and "Login" components based on the user's login status */}
+            {isLoggedIn ? (
+              <>
+                <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
+                <Route path="/" element={<CategoryList />} />
+                <Route path="/category/:categoryId" element={<CategoryDetails />} />
+                <Route path="/create-notes" element={<NoteCreationInterface />} />
+              </>
+            ) : (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </>
+            )}
           </Routes>
         </Content>
       </Layout>
