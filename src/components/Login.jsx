@@ -16,7 +16,7 @@ const Login = () => {
           // Save the access token to local storage
           localStorage.setItem('access_token', response.access_token);
       
-          navigate('/');
+          navigate('/sidebar');
         } catch (error) {
           console.error('Error logging in:', error);
         }
