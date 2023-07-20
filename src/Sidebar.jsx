@@ -6,6 +6,8 @@ import CategoryList from './components/CategoryList';
 import CategoryDetails from './components/CategoryDetails';
 import CategoryIcon from './components/CategoryIcon';
 import NoteCreationInterface from './components/NoteCreationInterface';
+import Login from './components/Login';
+import Register from './components/Register';
 
 import {
   MenuFoldOutlined,
@@ -100,6 +102,8 @@ const SideBar = () => {
           }}
         >
           <Routes>
+          <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
             <Route path='/' element={<CategoryList />} />
             <Route path="/category/:categoryId" element={<CategoryDetails />} />
