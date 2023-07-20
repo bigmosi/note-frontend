@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from './AuthService';
+import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -15,7 +16,7 @@ const Login = () => {
           // Save the access token to local storage
           localStorage.setItem('access_token', response.access_token);
       
-          navigate('/dashboard');
+          navigate('/');
         } catch (error) {
           console.error('Error logging in:', error);
         }
@@ -23,17 +24,28 @@ const Login = () => {
       
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="title">Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
-          <label>Username:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <div className="input-main">
+         <div>
+         <div className="text-input-container">
+          <label>User Name:</label><br />
+          <input 
+            type="text"
+            value={username}
+            placeholder="Please enter user name."
+            style={{ '--placeholder-color': 'green' }}
+            onChange={(e) => setUsername(e.target.value)} />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="text-input-container">
+          <label>Password:</label> <br />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit">Login</button>
+         </div>
+        </div>
+        <div className="button-container">
+          <button type="submit">Login</button>
+        </div>
       </form>
     </div>
   );

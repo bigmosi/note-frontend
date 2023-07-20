@@ -8,6 +8,7 @@ import CategoryIcon from './components/CategoryIcon';
 import NoteCreationInterface from './components/NoteCreationInterface';
 import Login from './components/Login';
 import Register from './components/Register';
+import Logout from './components/Logout';
 import AuthService from './components/AuthService';
 
 import {
@@ -57,10 +58,6 @@ const SideBar = () => {
     navigate('/login');
   };
 
-  const handleNavLinkClick = (path) => {
-    navigate(path);
-  };
-
   return (
     <Layout>
       {isLoggedIn ? (
@@ -79,11 +76,8 @@ const SideBar = () => {
           </Menu>
         </Sider>
       ) : (
-        <div>
-          {/* Redirect to the login page for non-logged-in users */}
-          You are not logged in. Please log in to access the Sidebar.
-          <button onClick={() => navigate('/login')}>Login</button>
-        </div>
+        // Redirect to the login page for non-logged-in users
+        navigate('/login')
       )}
       <Layout>
         <Header

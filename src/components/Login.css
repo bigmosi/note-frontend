@@ -1,0 +1,39 @@
+.input-main {
+    display: flex;
+    justify-content: center;
+}
+
+.text-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-input-container input {
+    border: 1px solid #0C46C4;
+    height: 45px;
+    border-radius: 5px;
+    width: 500px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-container button {
+    width: 200px;
+    height: 40px;
+    background-color: #0C46C4;
+    color: #fff;
+    font-family: "lato";
+    font-size: "28px";
+    border: none;
+    border-radius: 5px;
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+    color: #0C46C4;
+}
