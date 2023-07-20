@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import io  from 'socket.io-client';
+import io from 'socket.io-client';
+import './CategoryDetails.css';
 
 const Note = ({ note, index, moveNote }) => {
   const ref = React.useRef(null);
@@ -31,10 +32,10 @@ const Note = ({ note, index, moveNote }) => {
   drag(drop(ref));
 
   return (
-    <div ref={ref}>
-      <h4>{note.title}</h4>
-      <p>{note.content}</p>
-      <ul>
+    <div className="note" ref={ref}>
+      <h4 className="note-title">{note.title}</h4>
+      <p className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
+      <ul className="note-tags">
         {note.tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
@@ -60,18 +61,18 @@ const CategoryDetails = () => {
       setCategory((prevCategory) => {
         const updatedNotes = prevCategory.notes.map((note) => {
           if (note._id === updatedNote._id) {
-            return {...note, ...updatedNote};
+            return { ...note, ...updatedNote };
           }
           return note;
         });
 
         return { ...prevCategory, notes: updatedNotes };
-      }); 
+      });
     }, [categoryId]);
 
     return () => {
       socket.disconnect(); // Cleaning up the WebSocket connection when unmounting
-    }
+    };
   });
 
   useEffect(() => {
@@ -104,34 +105,33 @@ const CategoryDetails = () => {
   };
 
   const filteredNotes = category?.notes.filter(
-    (note) => 
-    note.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
-    note.content.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
-    note.tags.includes(filterTag)
-  )
+    (note) =>
+      note.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+      note.content.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+      note.tags.includes(filterTag)
+  );
 
   return (
-    <div>
+    <div className="category-details-container">
       {category ? (
         <div>
-          <h2>{category.name}</h2>
-          <p>{category.description}</p>
-          <div>
+          <h2 className="category-name">{category.name}</h2>
+          <p className="category-description">{category.description}</p>
+          <div className="search-filter-container">
             <label htmlFor="search">Search:</label>
             <input
               type="text"
               id="search"
+              className="search-input"
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search by title or content"
             />
-          </div>
-
-          <div>
             <label htmlFor="filterTag">Filter by Tag:</label>
             <input
               type="text"
               id="filterTag"
+              className="filter-input"
               value={filterTag}
               onChange={handleFilterTagChange}
               placeholder="Enter a tag to filter"
@@ -147,7 +147,7 @@ const CategoryDetails = () => {
               </ul>
             </DndProvider>
           ) : (
-            <p>No notes found for this category.</p>
+            <p className="no-notes-message">No notes found for this category.</p>
           )}
         </div>
       ) : (
