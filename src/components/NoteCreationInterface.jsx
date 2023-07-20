@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './NoteCreationInterface.css';
 
 const NoteCreationInterface = () => {
   const [noteTitle, setNoteTitle] = useState('Hello World');
@@ -65,19 +66,25 @@ const NoteCreationInterface = () => {
   };
 
   return (
-    <div>
+    <div className="note-creation-container">
       <input
         type="text"
+        className="note-input"
         placeholder="Enter note title"
         value={noteTitle}
         onChange={(e) => setNoteTitle(e.target.value)}
       />
       <ReactQuill
+        className="react-quill"
         value={noteContent}
         onChange={setNoteContent}
         modules={{ toolbar: true }}
       />
-      <select value={noteCategory} onChange={(e) => setNoteCategory(e.target.value)}>
+      <select
+        className="note-select"
+        value={noteCategory}
+        onChange={(e) => setNoteCategory(e.target.value)}
+      >
         <option value="">Select a category</option>
         {categories.map((category) => (
           <option key={category._id} value={category._id}>
@@ -87,11 +94,14 @@ const NoteCreationInterface = () => {
       </select>
       <input
         type="text"
+        className="note-tags"
         placeholder="Enter tags (comma-separated)"
         value={noteTags.join(', ')}
         onChange={(e) => setNoteTags(e.target.value.split(', '))}
       />
-      <button type="button" onClick={handleSaveNote}>Save Note</button>
+      <button type="button" className="save-button" onClick={handleSaveNote}>
+        Save Note
+      </button>
     </div>
   );
 };

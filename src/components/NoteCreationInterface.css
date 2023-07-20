@@ -1,47 +1,59 @@
-
 .note-creation-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
   padding: 20px;
+  border: 1px solid #0C46C4;
+  border-radius: 5px;
 }
 
-.note-title-input {
+/* Input styles */
+.note-input {
   width: 100%;
-  padding: 10px;
-  font-size: 20px;
-  border: 1px solid #ccc;
   margin-bottom: 10px;
-}
-
-.note-content-input {
-  width: 100%;
-  height: 300px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+  border: 1px solid #0C46C4;
+  border-radius: 5px;
 }
 
-.note-category-input,
-.note-tags-input {
+/* Quill editor styles */
+.react-quill {
+  margin-bottom: 10px;
+  border: 1px solid #0C46C4;
+  border-radius: 5px;
+}
+
+/* Select styles */
+.note-select {
   width: 100%;
+  margin-bottom: 10px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+  border: 1px solid #0C46C4;
+  border-radius: 5px;
 }
 
-.save-note-button {
-  background-color: #007bff;
+/* Tags input styles */
+.note-tags {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #0C46C4;
+  border-radius: 5px;
+}
+
+/* Save button styles */
+.save-button {
+  background-color: #0C46C4;
   color: #fff;
   padding: 10px 20px;
   font-size: 16px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 4px;
 }
 
-.save-note-button:hover {
+.save-button:hover {
   background-color: #0056b3;
 }
