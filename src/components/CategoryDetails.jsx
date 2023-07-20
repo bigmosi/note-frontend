@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import io  from 'socket.io-client';
 
 const Note = ({ note, index, moveNote }) => {
   const ref = React.useRef(null);
@@ -47,6 +48,31 @@ const CategoryDetails = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterTag, setFilterTag] = useState('');
   const { categoryId } = useParams();
+
+  // Setting up the WebSocket connection
+  useEffect(() => {
+    const socket = io('http://localhost:4000');
+    socket.emit('joinRoom', categoryId); // Join the room (category) corresponding to the categoryId
+
+    // Listen for note updates from the server
+    socket.on('noteUpdated', (updatedNote) => {
+      // Update the note in the category state with the updated content
+      setCategory((prevCategory) => {
+        const updatedNotes = prevCategory.notes.map((note) => {
+          if (note._id === updatedNote._id) {
+            return {...note, ...updatedNote};
+          }
+          return note;
+        });
+
+        return { ...prevCategory, notes: updatedNotes };
+      }); 
+    }, [categoryId]);
+
+    return () => {
+      socket.disconnect(); // Cleaning up the WebSocket connection when unmounting
+    }
+  });
 
   useEffect(() => {
     fetchCategoryDetails();
