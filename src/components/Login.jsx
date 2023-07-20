@@ -16,7 +16,7 @@ const Login = () => {
           // Save the access token to local storage
           localStorage.setItem('access_token', response.access_token);
       
-          navigate('/sidebar');
+          navigate('/');
         } catch (error) {
           console.error('Error logging in:', error);
         }
@@ -35,11 +35,19 @@ const Login = () => {
             value={username}
             placeholder="Please enter user name."
             style={{ '--placeholder-color': 'green' }}
-            onChange={(e) => setUsername(e.target.value)} />
+            onChange={(e) => setUsername(e.target.value)}
+            required
+             />
         </div>
         <div className="text-input-container">
           <label>Password:</label> <br />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input 
+           type="password" 
+           value={password} 
+           onChange={(e) => setPassword(e.target.value)}
+           placeholder="Please enter your password"
+           required
+            />
         </div>
          </div>
         </div>

@@ -1,58 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import io from 'socket.io-client';
 import './CategoryDetails.css';
+import Spinner from './Spinner';
 
-const Note = ({ note, index, moveNote }) => {
-  const ref = React.useRef(null);
-  const [, drop] = useDrop({
-    accept: 'NOTE',
-    hover(item, monitor) {
-      if (!ref.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      moveNote(dragIndex, hoverIndex);
-      item.index = hoverIndex;
-    },
-  });
-
-  const [, drag] = useDrag({
-    type: 'NOTE',
-    item: { id: note._id, index },
-  });
-
-  drag(drop(ref));
-
-  return (
-    <div className="note" ref={ref}>
-      <h4 className="note-title">{note.title}</h4>
-      <p className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
-      <ul className="note-tags">
-        {note.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+const LazyNote = React.lazy(() => import('./Note'));
 
 const CategoryDetails = () => {
   const [category, setCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterTag, setFilterTag] = useState('');
   const { categoryId } = useParams();
+  const [filterDate, setFilterDate] = useState(null);
+  const [newCategoryName, setNewCategoryName] = useState('');
 
   // Setting up the WebSocket connection
   useEffect(() => {
-    const socket = io('http://localhost:4000');
+    const socket = io('http://localhost:4000', {
+      transports: ['websocket'],
+    });
     socket.emit('joinRoom', categoryId); // Join the room (category) corresponding to the categoryId
 
     // Listen for note updates from the server
@@ -68,12 +37,12 @@ const CategoryDetails = () => {
 
         return { ...prevCategory, notes: updatedNotes };
       });
-    }, [categoryId]);
+    });
 
     return () => {
       socket.disconnect(); // Cleaning up the WebSocket connection when unmounting
     };
-  });
+  }, [categoryId]);
 
   useEffect(() => {
     fetchCategoryDetails();
@@ -82,6 +51,7 @@ const CategoryDetails = () => {
   const fetchCategoryDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/v1/categories/${categoryId}/notes`);
+      console.log(response.data);
       setCategory(response.data);
     } catch (error) {
       console.error('Error fetching category details:', error);
@@ -104,12 +74,45 @@ const CategoryDetails = () => {
     setFilterTag(e.target.value);
   };
 
-  const filteredNotes = category?.notes.filter(
-    (note) =>
-      note.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
-      note.content.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
-      note.tags.includes(filterTag)
-  );
+  const handleFilterDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setFilterDate(selectedDate);
+  };
+
+  const handleNewCategoryNameChange = (e) => {
+    setNewCategoryName(e.target.value);
+  };
+
+  const createCategory = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/categories', {
+        name: newCategoryName,
+        description: '',
+      });
+
+      setNewCategoryName(response.data);
+      alert('Category created successfully!');
+    } catch (error) {
+      console.log('Error creating category:', error);
+      alert('Failed to create the category. Please try again later.');
+      
+    }
+  }
+
+  const filteredNotes = category?.notes.filter((note) => {
+    // Filter by title, content, and tags
+    const matchesQuery =
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.tags.includes(filterTag);
+
+    // Filter by date (if filterDate is not null)
+    const matchesDate = filterDate
+      ? new Date(note.createdAt).toLocaleDateString() === filterDate
+      : true;
+
+    return matchesQuery && matchesDate;
+  });
 
   return (
     <div className="category-details-container">
@@ -136,22 +139,42 @@ const CategoryDetails = () => {
               onChange={handleFilterTagChange}
               placeholder="Enter a tag to filter"
             />
+            <label htmlFor="filterDate">Filter by Date:</label>
+            <input
+              type="date"
+              id="filterDate"
+              className="filter-input"
+              value={filterDate !== null ? filterDate : ''}
+              onChange={handleFilterDateChange}
+            />
           </div>
           <h3>Notes:</h3>
           {filteredNotes.length > 0 ? (
             <DndProvider backend={HTML5Backend}>
               <ul>
+                <Suspense fallback={<Spinner />}>
                 {filteredNotes.map((note, index) => (
-                  <Note key={note._id} note={note} index={index} moveNote={moveNote} />
-                ))}
+                    <LazyNote key={note._id} note={note} index={index} moveNote={moveNote} />
+                  ))}
+                </Suspense>
               </ul>
+              <div className="new-category-form">
+                <input
+                 type="text"
+                 value={newCategoryName}
+                 onChange={handleNewCategoryNameChange}
+                 placeholder="Enter category name"
+                 required
+                 />
+                 <button type="submit" onClick={createCategory} >Create Category</button>
+              </div>
             </DndProvider>
           ) : (
             <p className="no-notes-message">No notes found for this category.</p>
           )}
         </div>
       ) : (
-        <p>Loading...</p>
+        <Spinner />
       )}
     </div>
   );
