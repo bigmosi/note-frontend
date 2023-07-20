@@ -97,5 +97,31 @@
     font-style: italic;
     color: #888;
   }
+
+  .new-category-form {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .new-category-form input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .new-category-form button {
+    padding: 8px 12px;
+    background-color: #0C46C4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .new-category-form button:hover {
+    background-color: #0056b3;
+  }
   
   
