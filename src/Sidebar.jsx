@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import { NavLink, useNavigate, Routes, Route, Link } from 'react-router-dom';
 import NoteOrganization from './components/NoteOrganization';
 import CategoryList from './components/CategoryList';
 import CategoryDetails from './components/CategoryDetails';
@@ -8,11 +8,11 @@ import CategoryIcon from './components/CategoryIcon';
 import NoteCreationInterface from './components/NoteCreationInterface';
 import Login from './components/Login';
 import Register from './components/Register';
+import AuthService from './components/AuthService';
 
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
@@ -26,7 +26,6 @@ const SideBar = () => {
   } = theme.useToken();
 
   const [notes, setNotes] = useState([]);
-  const navigate = useNavigate();
 
   // Fetch notes from the backend on component mount
   useEffect(() => {
@@ -42,39 +41,50 @@ const SideBar = () => {
     }
   };
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(AuthService.isLoggedIn());
+
+  // Handle login/logout status changes
+  useEffect(() => {
+    setIsLoggedIn(AuthService.isLoggedIn());
+  }, [location]);
+
+  const handleLogout = () => {
+    // Clear the access token from local storage and redirect to the login page
+    localStorage.removeItem('access_token');
+    navigate('/login');
+  };
+
   const handleNavLinkClick = (path) => {
     navigate(path);
   };
 
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: 'home',
-              label: 'Home',
-              icon: <UserOutlined  />,
-              onClick: () => handleNavLinkClick('/'),
-            },
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'Create Notes',
-              onClick: () => handleNavLinkClick('/create-notes'),
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'nav 2',
-            },
-          ]}
-        />
-      </Sider>
+      {isLoggedIn ? (
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <div className="demo-logo-vertical" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="home" icon={<UserOutlined />}>
+              <NavLink to="/">Home</NavLink>
+            </Menu.Item>
+            <Menu.Item key="create-notes" icon={<UserOutlined />}>
+              <NavLink to="/create-notes">Create Notes</NavLink>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<VideoCameraOutlined />} onClick={handleLogout}>
+              Logout
+            </Menu.Item>
+          </Menu>
+        </Sider>
+      ) : (
+        <div>
+          {/* Redirect to the login page for non-logged-in users */}
+          You are not logged in. Please log in to access the Sidebar.
+          <button onClick={() => navigate('/login')}>Login</button>
+        </div>
+      )}
       <Layout>
         <Header
           style={{
@@ -97,15 +107,15 @@ const SideBar = () => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 'calc(100vh - 128px)', 
+            minHeight: 'calc(100vh - 128px)',
             background: colorBgContainer,
           }}
         >
           <Routes>
-          <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/categories/:categoryId" element={<NoteOrganization notes={notes} />} />
-            <Route path='/' element={<CategoryList />} />
+            <Route path="/" element={<CategoryList />} />
             <Route path="/category/:categoryId" element={<CategoryDetails />} />
             <Route path="/create-notes" element={<NoteCreationInterface />} />
           </Routes>
