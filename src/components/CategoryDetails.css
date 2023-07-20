@@ -4,7 +4,6 @@
     padding: 20px;
   }
   
-  /* Header styles */
   .category-name {
     font-size: 24px;
     font-weight: bold;
@@ -29,7 +28,7 @@
     width: 300px;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #0C46C4;
     border-radius: 5px;
   }
   
@@ -37,7 +36,7 @@
     width: 200px;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #0C46C4;
     border-radius: 5px;
   }
   

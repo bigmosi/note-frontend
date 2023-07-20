@@ -1,11 +1,8 @@
-/* NoteCreationInterface.css */
-
-/* Container styles */
 .note-creation-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #0C46C4;
   border-radius: 5px;
 }
 
@@ -15,14 +12,14 @@
   margin-bottom: 10px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #0C46C4;
   border-radius: 5px;
 }
 
 /* Quill editor styles */
 .react-quill {
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #0C46C4;
   border-radius: 5px;
 }
 
@@ -32,7 +29,7 @@
   margin-bottom: 10px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #0C46C4;
   border-radius: 5px;
 }
 
@@ -42,13 +39,13 @@
   margin-bottom: 10px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #0C46C4;
   border-radius: 5px;
 }
 
 /* Save button styles */
 .save-button {
-  background-color: #007bff;
+  background-color: #0C46C4;
   color: #fff;
   padding: 10px 20px;
   font-size: 16px;
