@@ -1,5 +1,8 @@
 **Implementation Decisions:**
 
+[Check out the GitHub repository for backend](https://github.com/bigmosi/note-backend.git);
+
+
 Frontend Libraries and Frameworks:
 1. React: I chose React as the frontend framework due to its popularity, ease of use, and extensive community support. React's component-based architecture allows for building modular and reusable UI components, making the application development process more efficient.
 

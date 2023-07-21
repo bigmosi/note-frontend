@@ -10,7 +10,6 @@ const NoteCreationInterface = () => {
   const [noteTags, setNoteTags] = useState(['']);
   const [categories, setCategories] = useState([]);
 
-  // Fetch categories from the server on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -55,7 +54,7 @@ const NoteCreationInterface = () => {
         setNoteTags(['']);
         alert('Note created successfully!');
       } else {
-        const errorData = await response.json(); // Parse the error response as JSON
+        const errorData = await response.json();
         console.error('Error response from server:', errorData);
         alert('Failed to create the note. Please try again later.');
       }

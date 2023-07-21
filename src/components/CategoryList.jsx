@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './CategoryList.css'; // Import the CSS file
+import './CategoryList.css';
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
