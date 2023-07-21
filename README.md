@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+**Implementation Decisions:**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend Libraries and Frameworks:
+1. React: I chose React as the frontend framework due to its popularity, ease of use, and extensive community support. React's component-based architecture allows for building modular and reusable UI components, making the application development process more efficient.
 
-## Available Scripts
+2. React Router: For handling client-side routing, I used React Router. It provides declarative routing, allowing me to define routes and map them to specific components, making navigation between different views seamless.
 
-In the project directory, you can run:
+3. Axios: To handle API requests, I opted for Axios, a widely-used HTTP client library. Axios simplifies making asynchronous requests, handling responses, and managing error handling.
 
-### `npm start`
+4. Ant Design: For UI components and styling, I chose Ant Design. It provides a set of well-designed and customizable components that enhance the overall look and feel of the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+5. React DnD: To implement drag-and-drop functionality, I used React DnD. This library facilitates easy drag-and-drop interactions between components, allowing users to rearrange elements intuitively.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+6. Socket.IO Client: For real-time updates, I implemented a WebSocket connection using Socket.IO client. This enables instant synchronization of data across connected clients when changes occur.
 
-### `npm test`
+**Design Patterns:**
+1. Component-based Architecture: I followed the component-based design pattern of React, where UI elements are organized into reusable and independent components. This promotes code reusability, maintainability, and a modular approach to development.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Container-View Pattern: I used the container-view pattern to separate logic (containers) from presentation (views). Containers handle data fetching, state management, and business logic, while views focus on rendering UI components based on the provided data.
 
-### `npm run build`
+**User Documentation:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Introduction:** Welcome to Note App - your personal note-taking and organization app! This user guide will help you navigate through the app's features and functionalities.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Getting Started:**
+   - Registering an Account: To get started, create a new account by clicking on the "Sign Up" button on the login page. Fill in the required information.
+   - Logging In: After Registering your account, use your credentials to log in to the app. Simply click on the "Log In" button and enter your username and password.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Dashboard:**
+   - Overview: Upon logging in, you'll land on the dashboard, which displays your categories and notes.
+   - Creating a Category: Click on the "New Category" button to create a new category. Provide a name and description, then click "Create."
+   - Viewing Categories: Your created categories will be listed on the dashboard. Click on a category to view its details, including notes and options to edit or delete the category.
 
-### `npm run eject`
+4. **Note Management:**
+   - Creating a Note: Inside a category, you can add notes by clicking on the "New Note" button. Enter a title, content, and optional tags before saving the note.
+   - Editing and Deleting Notes: To modify a note, click on it to open the note editor. Make the desired changes and click "Save." To delete a note, click on the trash icon and confirm the action.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. **Search and Filter:**
+   - Searching: Use the search bar on the dashboard to find specific notes. Enter keywords related to the title or content of the notes to filter the results.
+   - Filtering: You can also filter notes based on tags or creation dates using the respective filter options on the dashboard.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+6. **Real-Time Updates:**
+   - Collaboration: If you share a category with other users, any updates made to notes within that category will be instantly visible to all connected

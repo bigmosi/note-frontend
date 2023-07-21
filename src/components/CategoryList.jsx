@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './CategoryList.css'; // Import the CSS file
 
@@ -12,8 +11,13 @@ const CategoryList = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/categories');
-      setCategories(response.data);
+      const response = await fetch('http://localhost:4000/api/v1/categories');
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data);
+      } else {
+        throw new Error('Failed to fetch categories');
+      }
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
