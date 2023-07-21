@@ -6,6 +6,7 @@ import './Login.css';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,23 +18,37 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       console.error('Error logging in:', error);
+      setError('Invalid username or password, Please try again.');
     }
   };
+
+  const handleInputChange = (e) => {
+    setError('');
+  
+    if (e.target.name === 'username') {
+      setUsername(e.target.value);
+    } else if (e.target.name === 'password') {
+      setPassword(e.target.value);
+    }
+  };
+  
       
   return (
     <div>
       <h2 className="title">Login</h2>
       <form onSubmit={handleLogin}>
+        {error && <p className="error-message" style={{ color: 'red', marginBottom: '10px', textAlign: "center" }}>{error}</p>}
         <div className="input-main">
          <div>
          <div className="text-input-container">
           <label>User Name:</label><br />
           <input 
             type="text"
+            name="username"
             value={username}
             placeholder="Please enter user name."
             style={{ '--placeholder-color': 'green' }}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleInputChange}
             required
              />
         </div>
@@ -41,8 +56,9 @@ const Login = () => {
           <label>Password:</label> <br />
           <input 
            type="password" 
+           name="password"
            value={password} 
-           onChange={(e) => setPassword(e.target.value)}
+           onChange={handleInputChange}
            placeholder="Please enter your password"
            required
             />
