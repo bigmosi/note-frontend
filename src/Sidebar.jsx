@@ -8,6 +8,7 @@ import CategoryIcon from './components/CategoryIcon';
 import NoteCreationInterface from './components/NoteCreationInterface';
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
+import { getUser } from './utils/auth';
 
 const { Header, Sider, Content } = Layout;
 
@@ -19,6 +20,8 @@ const SideBar = () => {
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
 
+  const user = getUser();
+  
   // Fetch notes from the backend on component mount
   useEffect(() => {
     fetchNotes();
@@ -73,6 +76,9 @@ const SideBar = () => {
               height: 64,
             }}
           />
+          {user && user.name ? (
+          <span style={{ marginLeft: '16px', fontSize: '20px' }}>Welcome, {user.name}</span>
+        ) : null}
         </Header>
         <Content
           style={{
