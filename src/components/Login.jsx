@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate, Link} from 'react-router-dom';
+import { login } from '../utils/auth';
 import AuthService from './AuthService';
 import './Login.css';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
-  
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-          const response = await AuthService.login(username, password);
-          console.log('Login response:', response); // Check the data in the console
-          // Save the access token to local storage
-          localStorage.setItem('access_token', response.access_token);
-      
-          navigate('/');
-        } catch (error) {
-          console.error('Error logging in:', error);
-        }
-      };
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      // Call the login function and pass the username and password
+      await login(username, password);
+      // Redirect to the home page after successful login
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  };
       
   return (
     <div>
