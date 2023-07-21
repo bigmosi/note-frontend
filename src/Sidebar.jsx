@@ -52,7 +52,7 @@ const SideBar = () => {
             <NavLink to="/">Home</NavLink>
           </Menu.Item>
           <Menu.Item key="create-notes" icon={<UserOutlined />}>
-            <NavLink to="/create-notes">Create Notes</NavLink>
+            <NavLink to="/create-notes">New Notes</NavLink>
           </Menu.Item>
           <Menu.Item key="logout" icon={<VideoCameraOutlined />} onClick={handleLogout}>
             Logout
