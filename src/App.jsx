@@ -15,7 +15,7 @@ const App = () => {
         <Route
           path="/*"
           element={
-            <ProtectedRoute element={<SideBar />} /> // Use ProtectedRoute here
+            <ProtectedRoute element={<SideBar />} />
           }
         />
       </Routes>

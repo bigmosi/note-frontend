@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let isAuthenticated = false;
-let user = null; // Store the user data here
+let user = null;
 
 export const checkAuthentication = () => {
   return isAuthenticated;
