@@ -4,7 +4,7 @@ import configuration from "../config";
 const AuthService = {
     login: async (username, password) => {
         try {
-          const response = await axios.post(`${configuration.base_url}api/v1/auth/login`, {
+          const response = await axios.post(`${configuration.base_url}/api/v1/auth/login`, {
             username,
             password,
           });
