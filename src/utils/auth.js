@@ -1,4 +1,5 @@
 import axios from 'axios';
+import configuration from '../config';
 
 let isAuthenticated = false;
 let user = null;
@@ -13,7 +14,7 @@ export const getUser = () => {
 
 export const login = async (username, password) => {
   try {
-    const response = await axios.post('http://localhost:4000/api/v1/auth/login', {
+    const response = await axios.post(`${configuration.base_url}/api/v1/auth/login`, {
       username,
       password,
     });
