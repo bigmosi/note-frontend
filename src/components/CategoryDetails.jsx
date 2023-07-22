@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import io from 'socket.io-client';
 import './CategoryDetails.css';
@@ -47,7 +47,7 @@ const CategoryDetails = () => {
 
   useEffect(() => {
     fetchCategoryDetails();
-  }, [categoryId]);
+  }, [categoryId, fetchCategoryDetails]);
 
   const fetchCategoryDetails = async () => {
     try {

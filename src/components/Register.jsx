@@ -11,7 +11,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await AuthService.register(email, username, password);
+      await AuthService.register(email, username, password);
       // Handle successful registration here, such as displaying a success message to the user or redirecting to the login page
     } catch (error) {
       console.error('Error registering:', error);

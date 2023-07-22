@@ -1,5 +1,5 @@
 import React from 'react';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import './CategoryDetails.css';
 
 

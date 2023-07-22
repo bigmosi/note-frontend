@@ -1,8 +1,6 @@
 import axios from 'axios';
 import configuration from "../config";
 
-const BASE_URL = 'https://note-backend-api.onrender.com/api/v1/auth';
-
 const AuthService = {
     login: async (username, password) => {
         try {

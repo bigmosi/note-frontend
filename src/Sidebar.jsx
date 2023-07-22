@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
+import { NavLink, useNavigate, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import NoteOrganization from './components/NoteOrganization';
 import CategoryList from './components/CategoryList';
 import CategoryDetails from './components/CategoryDetails';
-import CategoryIcon from './components/CategoryIcon';
 import NoteCreationInterface from './components/NoteCreationInterface';
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
@@ -16,7 +15,6 @@ const SideBar = () => {
   // State and hooks
   const [collapsed, setCollapsed] = useState(false);
   const { colorBgContainer } = theme.useToken();
-  const location = useLocation();
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
 

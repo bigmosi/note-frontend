@@ -48,7 +48,7 @@ const NoteOrganization = () => {
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  }, [fetchNotes]);
 
   const fetchNotes = async () => {
     try {
