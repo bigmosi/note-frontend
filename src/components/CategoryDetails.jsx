@@ -6,6 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import io from 'socket.io-client';
 import './CategoryDetails.css';
 import Spinner from './Spinner';
+import configuration from "../config";
 
 const LazyNote = React.lazy(() => import('./Note'));
 
@@ -50,7 +51,7 @@ const CategoryDetails = () => {
 
   const fetchCategoryDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/v1/categories/${categoryId}/notes`);
+      const response = await axios.get(`${configuration.base_url}/api/v1/categories/${categoryId}/notes`);
       console.log(response.data);
       setCategory(response.data);
     } catch (error) {
@@ -85,7 +86,7 @@ const CategoryDetails = () => {
 
   const createCategory = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/categories', {
+      const response = await axios.post(`${configuration.base_url}/api/v1/categories`, {
         name: newCategoryName,
         description: '',
       });

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './NoteCreationInterface.css';
+import configuration from "../config";
 
 const NoteCreationInterface = () => {
   const [noteTitle, setNoteTitle] = useState('Hello World');
@@ -13,7 +14,7 @@ const NoteCreationInterface = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/v1/categories');
+        const response = await fetch(`${configuration.base_url}/api/v1/categories`);
         if (response.ok) {
           const data = await response.json();
           setCategories(data);
@@ -38,7 +39,7 @@ const NoteCreationInterface = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:4000/api/v1/notes', {
+      const response = await fetch(`${configuration.base_url}/api/v1/notes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

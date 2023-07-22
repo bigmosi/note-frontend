@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CategoryList.css';
+import configuration from "../config";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -11,7 +12,7 @@ const CategoryList = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/v1/categories');
+      const response = await fetch(`${configuration.base_url}/api/v1/categories`);
       if (response.ok) {
         const data = await response.json();
         setCategories(data);
@@ -24,7 +25,7 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="categories-container"> {/* Add className for styling */}
+    <div className="categories-container">
       <h2>Categories</h2>
       {categories.length > 0 ? (
         <ul>

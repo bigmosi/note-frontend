@@ -1,11 +1,12 @@
 import axios from 'axios';
+import configuration from "../config";
 
-const BASE_URL = 'http://localhost:4000/api/v1/auth/';
+const BASE_URL = 'https://note-backend-api.onrender.com/api/v1/auth';
 
 const AuthService = {
     login: async (username, password) => {
         try {
-          const response = await axios.post('http://localhost:4000/api/v1/auth/login', {
+          const response = await axios.post(`${configuration.base_url}api/v1/auth/login`, {
             username,
             password,
           });
@@ -21,7 +22,7 @@ const AuthService = {
 
   register: async (email, username, password) => {
     try {
-      const response = await axios.post(`${BASE_URL}/register`, { email, username, password });
+      const response = await axios.post(`${configuration.base_url}/register`, { email, username, password });
       return response.data;
     } catch (error) {
       throw new Error(error.response.data.message);

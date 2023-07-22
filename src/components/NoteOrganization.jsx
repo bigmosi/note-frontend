@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import configuration from "../config";
 const Note = ({ note, index, moveNote }) => {
   const ref = React.useRef(null);
   const [, drop] = useDrop({
@@ -53,7 +53,7 @@ const NoteOrganization = () => {
   const fetchNotes = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/v1/categories/${categoryId}/notes`
+        `${configuration.base_url}/api/v1/categories/${categoryId}/notes`
       );
       setNotes(response.data.notes);
     } catch (error) {
