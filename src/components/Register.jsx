@@ -13,10 +13,10 @@ const Register = () => {
     e.preventDefault();
     try {
       await AuthService.register(email, username, password);
-      setRegistration('Registration successful! Please login');
+      setRegistrationStatus('Registration successful! Please login');
     } catch (error) {
       console.error('Error registering:', error);
-      setRegistration('Registration failed. Please try again.');
+      setRegistrationStatus('Registration failed. Please try again.');
     }
   };
 
@@ -28,7 +28,6 @@ const Register = () => {
         <div className="input-main">
         <div>
         <div className="text-input-container">
-          {re}
           <label>Email:</label>
           <input 
            type="email" 
