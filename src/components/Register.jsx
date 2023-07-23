@@ -7,25 +7,28 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [registrationStatus, setRegistrationStatus] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       await AuthService.register(email, username, password);
-      // Handle successful registration here, such as displaying a success message to the user or redirecting to the login page
+      setRegistration('Registration successful! Please login');
     } catch (error) {
       console.error('Error registering:', error);
-      // Handle registration error, such as displaying an error message to the user
+      setRegistration('Registration failed. Please try again.');
     }
   };
 
   return (
     <div>
       <h2 className="title">Register</h2>
+      { registrationStatus && <p className="registration-status">{registrationStatus}</p> }
       <form onSubmit={handleRegister}>
         <div className="input-main">
         <div>
         <div className="text-input-container">
+          {re}
           <label>Email:</label>
           <input 
            type="email" 

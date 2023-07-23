@@ -41,3 +41,9 @@
 .login-link {
     text-align: center;
 }
+
+.registration-status {
+    font-size: 16px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
