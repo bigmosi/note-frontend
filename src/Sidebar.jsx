@@ -8,6 +8,7 @@ import NoteCreationInterface from './components/NoteCreationInterface';
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 import { getUser } from './utils/auth';
+import configuration from './config';
 
 const { Header, Sider, Content } = Layout;
 
@@ -27,7 +28,7 @@ const SideBar = () => {
 
   const fetchNotes = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/notes');
+      const response = await axios.get(`{configuration.base_url}/api/v1/notes`);
       setNotes(response.data.notes);
     } catch (error) {
       console.error('Error fetching notes:', error);
